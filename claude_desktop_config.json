@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "log-analyzer-server": {
+      "command": "java",
+      "args": [
+        "-jar",
+        "/home/nikhil/playGround/log-analyzer-mcp/target/log-analyzer-mcp-0.0.1-SNAPSHOT.jar"
+      ]
+    }
+  }
+}
