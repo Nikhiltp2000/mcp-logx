@@ -1,26 +1,16 @@
 package com.app.loganalyzer.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "log_entries")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class LogEntry {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private LocalDateTime timestamp;
     private String level; // e.g., INFO, WARN, ERROR
     private String message;

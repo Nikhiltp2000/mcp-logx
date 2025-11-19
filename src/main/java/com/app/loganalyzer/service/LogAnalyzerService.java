@@ -5,6 +5,7 @@ import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -28,7 +29,10 @@ public class LogAnalyzerService {
         Pattern pattern = Pattern.compile("^(\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}\\.\\d{3})\\s+([A-Z]+)\\s+\\[(.*?)\\]\\s+([\\w\\.]+)\\s+-\\s+(.*)$");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+        File file = new File(filePath);
+        String source = file.getName();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 Matcher matcher = pattern.matcher(line);
@@ -39,6 +43,7 @@ public class LogAnalyzerService {
                     logEntry.setThread(matcher.group(3));
                     logEntry.setLoggerName(matcher.group(4));
                     logEntry.setMessage(matcher.group(5));
+                    logEntry.setSource(source);
                     this.logEntries.add(logEntry);
                 }
             }
